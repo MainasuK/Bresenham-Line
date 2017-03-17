@@ -7,19 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB224C941E7C2772001A1AEE /* NSPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB224C931E7C2772001A1AEE /* NSPoint.swift */; };
+		DB224C961E7C2EEA001A1AEE /* CMKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB224C951E7C2EEA001A1AEE /* CMKView.swift */; };
 		DBFC828C1E7C016D00A86F74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFC828B1E7C016D00A86F74 /* AppDelegate.swift */; };
-		DBFC828E1E7C016D00A86F74 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFC828D1E7C016D00A86F74 /* ViewController.swift */; };
+		DBFC828E1E7C016D00A86F74 /* CMKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFC828D1E7C016D00A86F74 /* CMKViewController.swift */; };
 		DBFC82901E7C016D00A86F74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBFC828F1E7C016D00A86F74 /* Assets.xcassets */; };
 		DBFC82931E7C016D00A86F74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBFC82911E7C016D00A86F74 /* Main.storyboard */; };
+		DBFC829B1E7C03E400A86F74 /* CMKWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFC829A1E7C03E400A86F74 /* CMKWindowController.swift */; };
+		DBFC829D1E7C048300A86F74 /* CMKWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFC829C1E7C048300A86F74 /* CMKWindow.swift */; };
+		DBFC82A01E7C068A00A86F74 /* ConsolePrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFC829F1E7C068A00A86F74 /* ConsolePrint.swift */; };
+		DBFC82A21E7C0AEC00A86F74 /* CMKMouseTrackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFC82A11E7C0AEC00A86F74 /* CMKMouseTrackDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB224C931E7C2772001A1AEE /* NSPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPoint.swift; sourceTree = "<group>"; };
+		DB224C951E7C2EEA001A1AEE /* CMKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMKView.swift; sourceTree = "<group>"; };
 		DBFC82881E7C016D00A86F74 /* Bresenham-Line.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bresenham-Line.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBFC828B1E7C016D00A86F74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DBFC828D1E7C016D00A86F74 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DBFC828D1E7C016D00A86F74 /* CMKViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMKViewController.swift; sourceTree = "<group>"; };
 		DBFC828F1E7C016D00A86F74 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBFC82921E7C016D00A86F74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DBFC82941E7C016D00A86F74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBFC829A1E7C03E400A86F74 /* CMKWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMKWindowController.swift; sourceTree = "<group>"; };
+		DBFC829C1E7C048300A86F74 /* CMKWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMKWindow.swift; sourceTree = "<group>"; };
+		DBFC829F1E7C068A00A86F74 /* ConsolePrint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsolePrint.swift; sourceTree = "<group>"; };
+		DBFC82A11E7C0AEC00A86F74 /* CMKMouseTrackDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMKMouseTrackDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,13 +64,27 @@
 		DBFC828A1E7C016D00A86F74 /* Bresenham-Line */ = {
 			isa = PBXGroup;
 			children = (
-				DBFC828B1E7C016D00A86F74 /* AppDelegate.swift */,
-				DBFC828D1E7C016D00A86F74 /* ViewController.swift */,
-				DBFC828F1E7C016D00A86F74 /* Assets.xcassets */,
 				DBFC82911E7C016D00A86F74 /* Main.storyboard */,
-				DBFC82941E7C016D00A86F74 /* Info.plist */,
+				DBFC82A11E7C0AEC00A86F74 /* CMKMouseTrackDelegate.swift */,
+				DBFC829A1E7C03E400A86F74 /* CMKWindowController.swift */,
+				DBFC829C1E7C048300A86F74 /* CMKWindow.swift */,
+				DBFC828D1E7C016D00A86F74 /* CMKViewController.swift */,
+				DB224C951E7C2EEA001A1AEE /* CMKView.swift */,
+				DBFC829E1E7C04EC00A86F74 /* Supporting Files */,
 			);
 			path = "Bresenham-Line";
+			sourceTree = "<group>";
+		};
+		DBFC829E1E7C04EC00A86F74 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DBFC828B1E7C016D00A86F74 /* AppDelegate.swift */,
+				DBFC829F1E7C068A00A86F74 /* ConsolePrint.swift */,
+				DB224C931E7C2772001A1AEE /* NSPoint.swift */,
+				DBFC828F1E7C016D00A86F74 /* Assets.xcassets */,
+				DBFC82941E7C016D00A86F74 /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,7 +159,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBFC828E1E7C016D00A86F74 /* ViewController.swift in Sources */,
+				DBFC82A21E7C0AEC00A86F74 /* CMKMouseTrackDelegate.swift in Sources */,
+				DBFC82A01E7C068A00A86F74 /* ConsolePrint.swift in Sources */,
+				DBFC828E1E7C016D00A86F74 /* CMKViewController.swift in Sources */,
+				DB224C941E7C2772001A1AEE /* NSPoint.swift in Sources */,
+				DBFC829D1E7C048300A86F74 /* CMKWindow.swift in Sources */,
+				DBFC829B1E7C03E400A86F74 /* CMKWindowController.swift in Sources */,
+				DB224C961E7C2EEA001A1AEE /* CMKView.swift in Sources */,
 				DBFC828C1E7C016D00A86F74 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,6 +278,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Z68BDSMP42;
 				INFOPLIST_FILE = "Bresenham-Line/Info.plist";
@@ -260,6 +293,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Z68BDSMP42;
 				INFOPLIST_FILE = "Bresenham-Line/Info.plist";
@@ -289,6 +323,7 @@
 				DBFC82991E7C016D00A86F74 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
