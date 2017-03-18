@@ -10,10 +10,10 @@ import Cocoa
 
 class CMKView: NSView {
 
-    typealias Line = [CGPoint]
+    typealias Line = CGContext.BresenhamLine
 
     var lines = [Line]()
-    var currentLine = Line()
+    var currentLine: Line?
 
     // Optimize the rendering
     override var isOpaque: Bool {
@@ -22,6 +22,8 @@ class CMKView: NSView {
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
+
+        for _ in 0..<3 { Swift.print("") }
 
         guard let context: CGContext = NSGraphicsContext.current()?.cgContext else {
             consolePrint("Cannot get graphics context")
@@ -37,14 +39,12 @@ class CMKView: NSView {
         context.setStrokeColor(.black)
 
         for line in lines {
-            context.beginPath()
-            context.addLines(between: line)
-            context.strokePath()
+            context.addLine(line)
         }
 
-        context.beginPath()
-        context.addLines(between: currentLine)
-        context.strokePath()
+        if let currentLine = currentLine {
+            context.addLine(currentLine)
+        }
     }
 
     override func awakeFromNib() {
@@ -59,8 +59,7 @@ extension CMKView {
         super.mouseDown(with: event)
 
         let pixel = convert(event.locationInWindow, from: nil).integral()
-        currentLine = Line()
-        currentLine.append(pixel)
+        currentLine = (pixel, pixel)
 
         setNeedsDisplay(bounds)
     }
@@ -69,7 +68,7 @@ extension CMKView {
         super.mouseDragged(with: event)
         
         let pixel = convert(event.locationInWindow, from: nil).integral()
-        currentLine.append(pixel)
+        currentLine?.1 = pixel
 
         setNeedsDisplay(bounds)
     }
@@ -77,14 +76,24 @@ extension CMKView {
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
 
-        lines.append(currentLine)
+        let pixel = convert(event.locationInWindow, from: nil).integral()
+        currentLine?.1 = pixel
+        currentLine.flatMap { lines.append($0) }
 
         setNeedsDisplay(bounds)
     }
 
 }
 extension CGContext {
+
+    typealias BresenhamLine = (from: CGPoint, to: CGPoint)
+
     func fill(_ pixel: CGPoint) {
         fill(CGRect(origin: pixel, size: CGSize(width: 1.0, height: 1.0)))
     }
+
+    func addLine(_ line: BresenhamLine) {
+        consolePrint("Draw bresenham line from \(line.0) to \(line.1)")
+    }
+
 }
