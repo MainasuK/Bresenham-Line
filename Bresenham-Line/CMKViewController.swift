@@ -26,7 +26,7 @@ class CMKViewController: NSViewController {
 
     lazy var penTipView: NSView = {
         let view = NSView(frame: NSRect(origin: CGPoint.zero, size: CGSize(width: kPenTipWidth, height: kPenTipWidth)))
-        view.layer = CALayer()
+        view.wantsLayer = true
         view.layer?.backgroundColor = NSColor.red.cgColor
         view.layer?.cornerRadius = CGFloat(kPenTipWidth / 2)
 
@@ -40,6 +40,9 @@ class CMKViewController: NSViewController {
         // Just assert the width is a multiple of 2
         assert(type(of: self).kPenTipWidth % 2 == 0)
         view.addSubview(penTipView, positioned: .above, relativeTo: view)
+
+        // Comment it to debug mouse track
+        isDebug = false
     }
 
 }

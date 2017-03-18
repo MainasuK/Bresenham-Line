@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DB224C941E7C2772001A1AEE /* NSPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB224C931E7C2772001A1AEE /* NSPoint.swift */; };
 		DB224C961E7C2EEA001A1AEE /* CMKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB224C951E7C2EEA001A1AEE /* CMKView.swift */; };
+		DBF4FB9C1E7D578D005C3C37 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4FB9B1E7D578C005C3C37 /* Int.swift */; };
 		DBFC828C1E7C016D00A86F74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFC828B1E7C016D00A86F74 /* AppDelegate.swift */; };
 		DBFC828E1E7C016D00A86F74 /* CMKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFC828D1E7C016D00A86F74 /* CMKViewController.swift */; };
 		DBFC82901E7C016D00A86F74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBFC828F1E7C016D00A86F74 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		DB224C931E7C2772001A1AEE /* NSPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPoint.swift; sourceTree = "<group>"; };
 		DB224C951E7C2EEA001A1AEE /* CMKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMKView.swift; sourceTree = "<group>"; };
+		DBF4FB9B1E7D578C005C3C37 /* Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		DBFC82881E7C016D00A86F74 /* Bresenham-Line.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bresenham-Line.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBFC828B1E7C016D00A86F74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBFC828D1E7C016D00A86F74 /* CMKViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMKViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				DBFC828B1E7C016D00A86F74 /* AppDelegate.swift */,
 				DBFC829F1E7C068A00A86F74 /* ConsolePrint.swift */,
 				DB224C931E7C2772001A1AEE /* NSPoint.swift */,
+				DBF4FB9B1E7D578C005C3C37 /* Int.swift */,
 				DBFC828F1E7C016D00A86F74 /* Assets.xcassets */,
 				DBFC82941E7C016D00A86F74 /* Info.plist */,
 			);
@@ -165,6 +168,7 @@
 				DB224C941E7C2772001A1AEE /* NSPoint.swift in Sources */,
 				DBFC829D1E7C048300A86F74 /* CMKWindow.swift in Sources */,
 				DBFC829B1E7C03E400A86F74 /* CMKWindowController.swift in Sources */,
+				DBF4FB9C1E7D578D005C3C37 /* Int.swift in Sources */,
 				DB224C961E7C2EEA001A1AEE /* CMKView.swift in Sources */,
 				DBFC828C1E7C016D00A86F74 /* AppDelegate.swift in Sources */,
 			);

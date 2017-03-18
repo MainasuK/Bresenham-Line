@@ -23,7 +23,8 @@ class CMKView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
 
-        for _ in 0..<3 { Swift.print("") }
+        Swift.print("")
+        Swift.print("----- Drawing -----")
 
         guard let context: CGContext = NSGraphicsContext.current()?.cgContext else {
             consolePrint("Cannot get graphics context")
@@ -94,25 +95,39 @@ extension CGContext {
 
     func addLine(_ line: BresenhamLine) {
         consolePrint("Draw bresenham line from \(line.0) to \(line.1)")
-        let dx = Int(line.to.x - line.from.x)
-        let dy = Int(line.to.y - line.from.y)
+
+        guard !line.from.equalTo(line.to) else { return }
+
+        var dx = abs(Int(line.to.x - line.from.x))
+        var dy = abs(Int(line.to.y - line.from.y))
+        let xSign = Int(line.to.x - line.from.x).sign()
+        let ySign = Int(line.to.y - line.from.y).sign()
+
+        // Swap dx, dy
+        var isSwap = false
+        if dy > dx {
+            (dx, dy) = (dy, dx)
+            isSwap = true
+        }
         var e = 2 * dy - dx
 
-        // Draw start pixel
-        fill(line.from)
-
-        // Draw othe pixel
-        let xEnd = Int(line.to.x)
         var x = Int(line.from.x)
         var y = Int(line.from.y)
 
-        while (x <= xEnd) {
-            x += 1
-            y = (e >= 0) ? y + 1 : y
-
+        for _ in 0...dx {
             fill(CGPoint(x: x, y: y))
-            
-            e = (e >= 0) ? (e + 2 * dy - 2 * dx) : (e + 2 * dy)
+
+            if e >= 0 {
+                if isSwap   { x += xSign }
+                else        { y += ySign }
+
+                e -= 2 * dx
+            }
+
+            if isSwap   { y += ySign }
+            else        { x += xSign }
+
+            e += 2 * dy
         }
     }
 
