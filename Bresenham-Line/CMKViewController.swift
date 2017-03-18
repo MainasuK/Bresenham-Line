@@ -42,8 +42,6 @@ class CMKViewController: NSViewController {
         view.addSubview(penTipView, positioned: .above, relativeTo: view)
     }
 
-
-
 }
 
 extension CMKViewController: CMKMouseTrackDelegate {
@@ -58,4 +56,14 @@ extension CMKViewController: CMKMouseTrackDelegate {
         view.setNeedsDisplay(penTipView.frame)
     }
     
+}
+
+extension CMKViewController {
+
+    override func mouseDragged(with event: NSEvent) {
+        super.mouseDragged(with: event)
+
+        let point = event.locationInWindow.integral()
+        mouseLocation = NSPoint(x: point.x, y: point.y)
+    }
 }
