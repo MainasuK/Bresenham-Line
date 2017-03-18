@@ -10,7 +10,10 @@ import Cocoa
 
 class CMKView: NSView {
 
-    var pixels = [CGPoint]()
+    typealias Line = [CGPoint]
+
+    var lines = [Line]()
+    var currentLine = Line()
 
     // Optimize the rendering
     override var isOpaque: Bool {
@@ -33,9 +36,16 @@ class CMKView: NSView {
         context.setLineWidth(1.0)
         context.setStrokeColor(.black)
 
+        for line in lines {
+            context.beginPath()
+            context.move(to: line.first ?? CGPoint.zero)
+            line.forEach { context.addLine(to: $0) }
+            context.strokePath()
+        }
+
         context.beginPath()
-        context.move(to: CGPoint(x: bounds.midX, y: bounds.midY))
-        pixels.forEach { context.addLine(to: $0) }
+        context.move(to: currentLine.first ?? CGPoint.zero)
+        currentLine.forEach { context.addLine(to: $0) }
         context.strokePath()
     }
 
@@ -46,14 +56,34 @@ class CMKView: NSView {
 }
 
 extension CMKView {
+
+    override func mouseDown(with event: NSEvent) {
+        super.mouseDown(with: event)
+
+        let pixel = convert(event.locationInWindow, from: nil).integral()
+        currentLine = Line()
+        currentLine.append(pixel)
+
+        setNeedsDisplay(bounds)
+    }
+
     override func mouseDragged(with event: NSEvent) {
         super.mouseDragged(with: event)
         
         let pixel = convert(event.locationInWindow, from: nil).integral()
-        pixels.append(pixel)
+        currentLine.append(pixel)
 
         setNeedsDisplay(bounds)
     }
+
+    override func mouseUp(with event: NSEvent) {
+        super.mouseUp(with: event)
+
+        lines.append(currentLine)
+
+        setNeedsDisplay(bounds)
+    }
+
 }
 extension CGContext {
     func fill(_ pixel: CGPoint) {
