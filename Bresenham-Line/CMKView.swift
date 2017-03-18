@@ -38,14 +38,12 @@ class CMKView: NSView {
 
         for line in lines {
             context.beginPath()
-            context.move(to: line.first ?? CGPoint.zero)
-            line.forEach { context.addLine(to: $0) }
+            context.addLines(between: line)
             context.strokePath()
         }
 
         context.beginPath()
-        context.move(to: currentLine.first ?? CGPoint.zero)
-        currentLine.forEach { context.addLine(to: $0) }
+        context.addLines(between: currentLine)
         context.strokePath()
     }
 
