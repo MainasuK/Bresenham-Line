@@ -68,7 +68,7 @@ extension CMKView {
         super.mouseDragged(with: event)
         
         let pixel = convert(event.locationInWindow, from: nil).integral()
-        currentLine?.1 = pixel
+        currentLine?.to = pixel
 
         setNeedsDisplay(bounds)
     }
@@ -77,7 +77,7 @@ extension CMKView {
         super.mouseUp(with: event)
 
         let pixel = convert(event.locationInWindow, from: nil).integral()
-        currentLine?.1 = pixel
+        currentLine?.to = pixel
         currentLine.flatMap { lines.append($0) }
 
         setNeedsDisplay(bounds)
@@ -94,6 +94,26 @@ extension CGContext {
 
     func addLine(_ line: BresenhamLine) {
         consolePrint("Draw bresenham line from \(line.0) to \(line.1)")
+        let dx = Int(line.to.x - line.from.x)
+        let dy = Int(line.to.y - line.from.y)
+        var e = 2 * dy - dx
+
+        // Draw start pixel
+        fill(line.from)
+
+        // Draw othe pixel
+        let xEnd = Int(line.to.x)
+        var x = Int(line.from.x)
+        var y = Int(line.from.y)
+
+        while (x <= xEnd) {
+            x += 1
+            y = (e >= 0) ? y + 1 : y
+
+            fill(CGPoint(x: x, y: y))
+            
+            e = (e >= 0) ? (e + 2 * dy - 2 * dx) : (e + 2 * dy)
+        }
     }
 
 }
