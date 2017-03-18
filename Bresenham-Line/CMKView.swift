@@ -30,8 +30,13 @@ class CMKView: NSView {
         context.fill(bounds)
 
         context.setFillColor(.black)
+        context.setLineWidth(1.0)
+        context.setStrokeColor(.black)
 
-        pixels.forEach { context.fill($0) }
+        context.beginPath()
+        context.move(to: CGPoint(x: bounds.midX, y: bounds.midY))
+        pixels.forEach { context.addLine(to: $0) }
+        context.strokePath()
     }
 
     override func awakeFromNib() {
