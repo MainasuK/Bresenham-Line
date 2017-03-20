@@ -35,10 +35,8 @@ class CMKView: NSView {
         context.setFillColor(.white)
         context.fill(bounds)
 
+        // Draw lines
         context.setFillColor(.black)
-        context.setLineWidth(1.0)
-        context.setStrokeColor(.black)
-
         for line in lines {
             context.addLine(line)
         }
@@ -46,10 +44,6 @@ class CMKView: NSView {
         if let currentLine = currentLine {
             context.addLine(currentLine)
         }
-    }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
     }
 
 }
@@ -85,6 +79,7 @@ extension CMKView {
     }
 
 }
+
 extension CGContext {
 
     typealias BresenhamLine = (from: CGPoint, to: CGPoint)
@@ -121,12 +116,14 @@ extension CGContext {
                 if isSwap   { x += xSign }
                 else        { y += ySign }
 
+                // if e >= 0, then minus 2dx
                 e -= 2 * dx
             }
 
             if isSwap   { y += ySign }
             else        { x += xSign }
 
+            // always plus 2dy
             e += 2 * dy
         }
     }
