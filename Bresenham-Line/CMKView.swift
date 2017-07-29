@@ -10,7 +10,7 @@ import Cocoa
 
 class CMKView: NSView {
 
-    typealias Line = CGContext.BresenhamLine
+    typealias Line = BresenhamLine
 
     var lines = [Line]()
     var currentLine: Line?
@@ -34,98 +34,40 @@ class CMKView: NSView {
         // Fill background to white
         context.setFillColor(.white)
         context.fill(bounds)
-
-        // Draw lines
         context.setFillColor(.black)
+        
+        // Draw circle
+        let w = Int(bounds.size.width)
+        for i in 0...w{
+            let pts = Bresenham.pointsAlongCircle(xc: 100, yc: 100, r: i)
+            context.fillPixels(pts)
+        }
+       
+        // Draw lines
         for line in lines {
-            context.addLine(line)
+           let result =  Bresenham.pointsAlongLineBresenham(line)
+            context.fillPixels(result)
         }
 
         if let currentLine = currentLine {
-            context.addLine(currentLine)
+           let result =  Bresenham.pointsAlongLineBresenham(currentLine)
+            context.fillPixels(result)
         }
     }
 
 }
 
-extension CMKView {
-
-    override func mouseDown(with event: NSEvent) {
-        super.mouseDown(with: event)
-
-        let pixel = convert(event.locationInWindow, from: nil).integral()
-        currentLine = (pixel, pixel)
-
-        setNeedsDisplay(bounds)
-    }
-
-    override func mouseDragged(with event: NSEvent) {
-        super.mouseDragged(with: event)
-        
-        let pixel = convert(event.locationInWindow, from: nil).integral()
-        currentLine?.to = pixel
-
-        setNeedsDisplay(bounds)
-    }
-
-    override func mouseUp(with event: NSEvent) {
-        super.mouseUp(with: event)
-
-        let pixel = convert(event.locationInWindow, from: nil).integral()
-        currentLine?.to = pixel
-        currentLine.flatMap { lines.append($0) }
-
-        setNeedsDisplay(bounds)
-    }
-
-}
 
 extension CGContext {
 
-    typealias BresenhamLine = (from: CGPoint, to: CGPoint)
-
+    func fillPixels(_ pixels: [CGPoint]) {
+        for pixel in pixels{
+          fill(CGRect(origin: pixel, size: CGSize(width: 1.0, height: 1.0)))
+        }
+    }
+    
     func fill(_ pixel: CGPoint) {
         fill(CGRect(origin: pixel, size: CGSize(width: 1.0, height: 1.0)))
     }
-
-    func addLine(_ line: BresenhamLine) {
-        consolePrint("Draw bresenham line from \(line.0) to \(line.1)")
-
-        guard !line.from.equalTo(line.to) else { return }
-
-        var dx = abs(Int(line.to.x - line.from.x))
-        var dy = abs(Int(line.to.y - line.from.y))
-        let xSign = Int(line.to.x - line.from.x).sign()
-        let ySign = Int(line.to.y - line.from.y).sign()
-
-        // Swap dx, dy
-        var isSwap = false
-        if dy > dx {
-            (dx, dy) = (dy, dx)
-            isSwap = true
-        }
-        var e = 2 * dy - dx
-
-        var x = Int(line.from.x)
-        var y = Int(line.from.y)
-
-        for _ in 0...dx {
-            fill(CGPoint(x: x, y: y))
-
-            if e >= 0 {
-                if isSwap   { x += xSign }
-                else        { y += ySign }
-
-                // if e >= 0, then minus 2dx
-                e -= 2 * dx
-            }
-
-            if isSwap   { y += ySign }
-            else        { x += xSign }
-
-            // always plus 2dy
-            e += 2 * dy
-        }
-    }
-
 }
+

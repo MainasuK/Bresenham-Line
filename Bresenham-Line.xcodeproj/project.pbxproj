@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		832A05191F2C17C100189151 /* CMKView+Mouse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A05181F2C17C100189151 /* CMKView+Mouse.swift */; };
+		832A051B1F2C180D00189151 /* CMKBresenham.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A051A1F2C180D00189151 /* CMKBresenham.swift */; };
 		DB224C941E7C2772001A1AEE /* NSPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB224C931E7C2772001A1AEE /* NSPoint.swift */; };
 		DB224C961E7C2EEA001A1AEE /* CMKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB224C951E7C2EEA001A1AEE /* CMKView.swift */; };
 		DBF4FB9C1E7D578D005C3C37 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4FB9B1E7D578C005C3C37 /* Int.swift */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		832A05181F2C17C100189151 /* CMKView+Mouse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMKView+Mouse.swift"; sourceTree = "<group>"; };
+		832A051A1F2C180D00189151 /* CMKBresenham.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMKBresenham.swift; sourceTree = "<group>"; };
 		DB224C931E7C2772001A1AEE /* NSPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPoint.swift; sourceTree = "<group>"; };
 		DB224C951E7C2EEA001A1AEE /* CMKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMKView.swift; sourceTree = "<group>"; };
 		DBF4FB9B1E7D578C005C3C37 /* Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
@@ -72,6 +76,8 @@
 				DBFC829C1E7C048300A86F74 /* CMKWindow.swift */,
 				DBFC828D1E7C016D00A86F74 /* CMKViewController.swift */,
 				DB224C951E7C2EEA001A1AEE /* CMKView.swift */,
+				832A051A1F2C180D00189151 /* CMKBresenham.swift */,
+				832A05181F2C17C100189151 /* CMKView+Mouse.swift */,
 				DBFC829E1E7C04EC00A86F74 /* Supporting Files */,
 			);
 			path = "Bresenham-Line";
@@ -167,6 +173,8 @@
 				DBFC828E1E7C016D00A86F74 /* CMKViewController.swift in Sources */,
 				DB224C941E7C2772001A1AEE /* NSPoint.swift in Sources */,
 				DBFC829D1E7C048300A86F74 /* CMKWindow.swift in Sources */,
+				832A05191F2C17C100189151 /* CMKView+Mouse.swift in Sources */,
+				832A051B1F2C180D00189151 /* CMKBresenham.swift in Sources */,
 				DBFC829B1E7C03E400A86F74 /* CMKWindowController.swift in Sources */,
 				DBF4FB9C1E7D578D005C3C37 /* Int.swift in Sources */,
 				DB224C961E7C2EEA001A1AEE /* CMKView.swift in Sources */,
@@ -284,7 +292,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = Z68BDSMP42;
+				DEVELOPMENT_TEAM = WMDZ2CQA8K;
 				INFOPLIST_FILE = "Bresenham-Line/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mainasuk.Bresenham-Line";
@@ -299,7 +307,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = Z68BDSMP42;
+				DEVELOPMENT_TEAM = WMDZ2CQA8K;
 				INFOPLIST_FILE = "Bresenham-Line/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mainasuk.Bresenham-Line";
