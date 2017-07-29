@@ -36,10 +36,11 @@ class CMKView: NSView {
             let pts = Bresenham.pointsAlongMidPoint(xc: 300, yc: 300, r: i*80)
             circleMidPoints.append(contentsOf: pts)
         }
-        for i in 0...2{
-            let pts = Bresenham.pointsForOctants(xc: 555, yc: 255, r: i*80,octants: [0,1])
-            octantPoints.append(contentsOf: pts)
-        }
+        
+        // Arcs + octants
+        let pts = Bresenham.pointsForOctants(xc: 555, yc: 255, radialRange: Array(180...200),octants: [0,2,4,6,7])
+        octantPoints.append(contentsOf: pts)
+        
         
         
         
@@ -103,7 +104,7 @@ extension CGContext {
     func fillPixels(_ pixels: [CGPoint]) {
         var size:CGSize?
         if Screen.retinaScale > 1{
-            size = CGSize(width: 2.0, height: 2.0)
+            size = CGSize(width: 1.0, height: 1.0)
         }else{
             size = CGSize(width: 1.0, height: 1.0)
         }
