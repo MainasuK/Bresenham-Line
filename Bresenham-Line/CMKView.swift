@@ -18,6 +18,7 @@ class CMKView: NSView {
     var runOnce = false
     var circlePoints:[CGPoint] = []
     var circleMidPoints:[CGPoint] = []
+    var octantPoints:[CGPoint] = []
 
     // Optimize the rendering
     override var isOpaque: Bool {
@@ -26,15 +27,22 @@ class CMKView: NSView {
 
     
     func preCalculateCirclePoints(){
-        for i in 0...10{
+        for i in 0...2{
             let pts = Bresenham.pointsAlongCircle(xc: 0, yc: 0, r: i*150)
             circlePoints.append(contentsOf: pts)
         }
         
-        for i in 0...10{
+        for i in 0...3{
             let pts = Bresenham.pointsAlongMidPoint(xc: 300, yc: 300, r: i*80)
             circleMidPoints.append(contentsOf: pts)
         }
+        for i in 0...2{
+            let pts = Bresenham.pointsForOctants(xc: 555, yc: 255, r: i*80,octants: [0,1])
+            octantPoints.append(contentsOf: pts)
+        }
+        
+        
+        
     }
     
     
@@ -79,6 +87,11 @@ class CMKView: NSView {
         
         // Mid point algorithm
         context.fillPixels(circleMidPoints)
+        
+        // octant segments
+        context.setFillColor(NSColor.blue.cgColor)
+        context.fillPixels(octantPoints)
+        
         
     }
 

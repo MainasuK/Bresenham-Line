@@ -70,21 +70,20 @@ class Bresenham:NSObject{
                 y = y - 1;
                 d = d + 2 * (x - y) + 1
             }
-            result.append(CGPoint(x:xc + x,y:yc + y))
-            result.append(CGPoint(x:xc + x,y:yc - y))
-            result.append(CGPoint(x:xc - x,y:yc + y))
-            result.append(CGPoint(x:xc - x,y:yc - y))
             
-            result.append(CGPoint(x:xc + y,y:yc + x))
-            result.append(CGPoint(x:xc + y,y:yc - x))
-            result.append(CGPoint(x:xc - y,y:yc + x))
-            result.append(CGPoint(x:xc - y,y:yc - x))
-         
+            for octant in 0...7{
+                var x1:Int, y1:Int;
+                (x1, y1) = switchFromOctantZeroTo(octant:octant,x:x,y:y)
+                result.append(CGPoint(x:xc + x1,y:yc + y1))
+            }
             
         }
         return result
         
     }
+    
+    
+
     class func  pointsAlongCircle( xc:Int,  yc:Int,  r:Int)-> [CGPoint]
     {
         var  x = 0
@@ -95,15 +94,12 @@ class Bresenham:NSObject{
         
         while(x <= y)
         {
-            result.append(CGPoint(x:xc + x,y:yc + y))
-            result.append(CGPoint(x:xc + x,y:yc - y))
-            result.append(CGPoint(x:xc - x,y:yc + y))
-            result.append(CGPoint(x:xc - x,y:yc - y))
+            for octant in 0...7{
+                var x1:Int, y1:Int;
+                (x1, y1) = switchFromOctantZeroTo(octant:octant,x:x,y:y)
+                result.append(CGPoint(x:xc + x1,y:yc + y1))
+            }
             
-            result.append(CGPoint(x:xc + y,y:yc + x))
-            result.append(CGPoint(x:xc + y,y:yc - x))
-            result.append(CGPoint(x:xc - y,y:yc + x))
-            result.append(CGPoint(x:xc - y,y:yc - x))
             
             if (d < 0){
                 d = d + 4*x + 6;
@@ -116,4 +112,68 @@ class Bresenham:NSObject{
         return result
     }
     
+    
+    
+
+    
+    class func  pointsForOctants( xc:Int,  yc:Int,  r:Int,octants:[Int])-> [CGPoint]
+    {
+        var  x = 0
+        var  y = r
+        var  d = 3 - 2 * r
+        
+        var result: [CGPoint] = []
+        
+        while(x <= y)
+        {
+            // all 8 octants
+            // https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
+            for octant in octants{
+                var x1:Int, y1:Int;
+                (x1, y1) = switchFromOctantZeroTo(octant:octant,x:x,y:y)
+                result.append(CGPoint(x:xc + x1,y:yc + y1))
+            }
+            
+            if (d < 0){
+                d = d + 4*x + 6;
+            } else {
+                d = d + 4*(x-y) + 10;
+                y = y-1;
+            }
+            x = x + 1;
+        }
+        return result
+    }
+
+
+    /*
+     Octants:
+     \2|1/
+     3\|/0
+     ---+---
+     4/|\7
+     /5|6\
+     */
+    
+    class func switchFromOctantZeroTo(octant:Int, x:Int, y:Int)->(x:Int,y:Int){
+        
+        switch(octant){
+        case 0: return (x, y)
+        case 1: return (y, x)
+        case 2: return (-y, x)
+        case 3: return (-x, y)
+        case 4: return (-x, -y)
+        case 5: return (-y, -x)
+        case 6: return (y, -x)
+        case 7: return (x, -y)
+        default:
+            return (x, y)
+        }
+        
+       
+    }
+ 
+    
 }
+    
+
