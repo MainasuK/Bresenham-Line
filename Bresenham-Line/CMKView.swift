@@ -17,6 +17,7 @@ class CMKView: NSView {
 
     var runOnce = false
     var circlePoints:[CGPoint] = []
+    var circleMidPoints:[CGPoint] = []
 
     // Optimize the rendering
     override var isOpaque: Bool {
@@ -37,16 +38,21 @@ class CMKView: NSView {
         if (!runOnce){
             runOnce = true
             
-            for i in 0...100{
-                let pts = Bresenham.pointsAlongCircle(xc: 100, yc: 100, r: i)
+            for i in 0...10{
+                let pts = Bresenham.pointsAlongCircle(xc: 0, yc: 0, r: i*150)
                 circlePoints.append(contentsOf: pts)
+            }
+            
+            for i in 0...10{
+                let pts = Bresenham.pointsAlongMidPoint(xc: 300, yc: 300, r: i*80)
+                circleMidPoints.append(contentsOf: pts)
             }
         }
         
         // Fill background to white
         context.setFillColor(.white)
         context.fill(bounds)
-        context.setFillColor(.black)
+        context.setFillColor(NSColor.red.cgColor)
 
        
         // Draw lines
@@ -60,13 +66,14 @@ class CMKView: NSView {
             context.fillPixels(pts)
         }
         
+        
+        context.setFillColor(NSColor.lightGray.cgColor)
+        
         // Draw circle
         context.fillPixels(circlePoints)
         
         // Mid point algorithm
-        // context.setFillColor(.red)
-        let pts = Bresenham.pointsAlongMidPoint(xc: 200, yc: 200, r: 50)
-        context.fillPixels(pts)
+        context.fillPixels(circleMidPoints)
         
     }
 
