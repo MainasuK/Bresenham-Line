@@ -24,6 +24,20 @@ class CMKView: NSView {
         return true
     }
 
+    
+    func preCalculateCirclePoints(){
+        for i in 0...10{
+            let pts = Bresenham.pointsAlongCircle(xc: 0, yc: 0, r: i*150)
+            circlePoints.append(contentsOf: pts)
+        }
+        
+        for i in 0...10{
+            let pts = Bresenham.pointsAlongMidPoint(xc: 300, yc: 300, r: i*80)
+            circleMidPoints.append(contentsOf: pts)
+        }
+    }
+    
+    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
 
@@ -37,16 +51,7 @@ class CMKView: NSView {
 
         if (!runOnce){
             runOnce = true
-            
-            for i in 0...10{
-                let pts = Bresenham.pointsAlongCircle(xc: 0, yc: 0, r: i*150)
-                circlePoints.append(contentsOf: pts)
-            }
-            
-            for i in 0...10{
-                let pts = Bresenham.pointsAlongMidPoint(xc: 300, yc: 300, r: i*80)
-                circleMidPoints.append(contentsOf: pts)
-            }
+            preCalculateCirclePoints()
         }
         
         // Fill background to white
