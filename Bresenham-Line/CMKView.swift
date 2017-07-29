@@ -15,6 +15,9 @@ class CMKView: NSView {
     var lines = [Line]()
     var currentLine: Line?
 
+    var runOnce = false
+    var circlePoints:[CGPoint] = []
+    
     // Optimize the rendering
     override var isOpaque: Bool {
         return true
@@ -31,17 +34,24 @@ class CMKView: NSView {
             return
         }
 
+        if (!runOnce){
+            runOnce = true
+            
+            for i in 0...100{
+                circlePoints.append(contentsOf: Bresenham.pointsAlongCircle(xc: 100, yc: 100, r: i))
+            }
+            
+            
+        }
+        
         // Fill background to white
         context.setFillColor(.white)
         context.fill(bounds)
         context.setFillColor(.black)
         
-        // Draw circle
-        let w = Int(bounds.size.width)
-        for i in 0...w{
-            let pts = Bresenham.pointsAlongCircle(xc: 100, yc: 100, r: i)
-            context.fillPixels(pts)
-        }
+        // Draw circle from pixels calculated
+        context.fillPixels(circlePoints)
+        
        
         // Draw lines
         for line in lines {
