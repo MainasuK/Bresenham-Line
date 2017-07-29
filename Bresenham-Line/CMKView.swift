@@ -17,7 +17,7 @@ class CMKView: NSView {
 
     var runOnce = false
     var circlePoints:[CGPoint] = []
-    
+
     // Optimize the rendering
     override var isOpaque: Bool {
         return true
@@ -40,8 +40,6 @@ class CMKView: NSView {
             for i in 0...100{
                 circlePoints.append(contentsOf: Bresenham.pointsAlongCircle(xc: 100, yc: 100, r: i))
             }
-            
-            
         }
         
         // Fill background to white
@@ -71,8 +69,15 @@ class CMKView: NSView {
 extension CGContext {
 
     func fillPixels(_ pixels: [CGPoint]) {
+        var size:CGSize?
+        if Screen.retinaScale > 1{
+            size = CGSize(width: 2.0, height: 2.0)
+        }else{
+            size = CGSize(width: 1.0, height: 1.0)
+        }
+
         for pixel in pixels{
-          fill(CGRect(origin: pixel, size: CGSize(width: 1.0, height: 1.0)))
+          fill(CGRect(origin: pixel, size: size!))
         }
     }
     

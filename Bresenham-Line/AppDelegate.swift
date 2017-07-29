@@ -25,3 +25,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 }
 
+public typealias Screen = NSScreen
+
+extension NSScreen {
+    static var retinaScale: CGFloat {
+       return NSScreen.main()!.backingScaleFactor
+       }
+}
+
