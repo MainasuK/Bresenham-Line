@@ -38,7 +38,8 @@ class CMKView: NSView {
             runOnce = true
             
             for i in 0...100{
-                circlePoints.append(contentsOf: Bresenham.pointsAlongCircle(xc: 100, yc: 100, r: i))
+                let pts = Bresenham.pointsAlongCircle(xc: 100, yc: 100, r: i)
+                circlePoints.append(contentsOf: pts)
             }
         }
         
@@ -46,21 +47,27 @@ class CMKView: NSView {
         context.setFillColor(.white)
         context.fill(bounds)
         context.setFillColor(.black)
-        
-        // Draw circle from pixels calculated
-        context.fillPixels(circlePoints)
-        
+
        
         // Draw lines
         for line in lines {
-           let result =  Bresenham.pointsAlongLineBresenham(line)
-            context.fillPixels(result)
+           let pts =  Bresenham.pointsAlongLineBresenham(line)
+            context.fillPixels(pts)
         }
 
         if let currentLine = currentLine {
-           let result =  Bresenham.pointsAlongLineBresenham(currentLine)
-            context.fillPixels(result)
+           let pts =  Bresenham.pointsAlongLineBresenham(currentLine)
+            context.fillPixels(pts)
         }
+        
+        // Draw circle
+        context.fillPixels(circlePoints)
+        
+        // Mid point algorithm
+        // context.setFillColor(.red)
+        let pts = Bresenham.pointsAlongMidPoint(xc: 200, yc: 200, r: 50)
+        context.fillPixels(pts)
+        
     }
 
 }

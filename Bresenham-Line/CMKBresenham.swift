@@ -54,11 +54,41 @@ class Bresenham:NSObject{
         return result
     }
     
-    
+
+    // https://en.wikipedia.org/wiki/Midpoint_circle_algorithm
+    class func pointsAlongMidPoint( xc:Int,  yc:Int,  r:Int)-> [CGPoint]{
+        var  x = 0
+        var  y = r
+        var  d = 1 -  r
+        var result: [CGPoint] = []
+        
+        while(x <= y){
+            x = x + 1
+            if(d < 0){
+              d = d + 2 * x + 1
+            } else{
+                y = y - 1;
+                d = d + 2 * (x - y) + 1
+            }
+            result.append(CGPoint(x:xc + x,y:yc + y))
+            result.append(CGPoint(x:xc + x,y:yc - y))
+            result.append(CGPoint(x:xc - x,y:yc + y))
+            result.append(CGPoint(x:xc - x,y:yc - y))
+            
+            result.append(CGPoint(x:xc + y,y:yc + x))
+            result.append(CGPoint(x:xc + y,y:yc - x))
+            result.append(CGPoint(x:xc - y,y:yc + x))
+            result.append(CGPoint(x:xc - y,y:yc - x))
+         
+            
+        }
+        return result
+        
+    }
     class func  pointsAlongCircle( xc:Int,  yc:Int,  r:Int)-> [CGPoint]
     {
         var  x = 0
-        var y = r
+        var  y = r
         var  d = 3 - 2 * r
         
         var result: [CGPoint] = []
