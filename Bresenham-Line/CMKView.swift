@@ -12,6 +12,17 @@ class CMKView: NSView {
 
     typealias Line = BresenhamLine
 
+    var penRadius: CGFloat = 4.0 {
+        didSet {
+            window?.invalidateCursorRects(for: self)
+        }
+    }
+    var penColor: NSColor = .black {
+        didSet {
+            window?.invalidateCursorRects(for: self)
+        }
+    }
+
     var lines = [Line]()
     var currentLine: Line?
 
@@ -27,7 +38,7 @@ class CMKView: NSView {
 
     
     func preCalculateCirclePoints(){
-        for i in 0...2{
+        for i in 0...2 {
             let pts = Bresenham.pointsAlongCircle(xc: 0, yc: 0, r: i*150)
             circlePoints.append(contentsOf: pts)
         }
@@ -41,7 +52,7 @@ class CMKView: NSView {
         let x = 0
         let y = 0
         var r = 2
-        while(true){
+        while(true) {
 
             let pts = Bresenham.pointsForOctants(xc: x, yc: y, radialRange: Array(r...r),octants: [0,1])
             octantPoints.append(contentsOf: pts)
@@ -75,20 +86,20 @@ class CMKView: NSView {
         // Fill background to white
         context.setFillColor(.white)
         context.fill(bounds)
-        context.setFillColor(NSColor.red.cgColor)
 
        
         // Draw lines
         for line in lines {
-           let pts =  Bresenham.pointsAlongLineBresenham(line)
+            let pts = Bresenham.pointsAlongLineBresenham(line)
+            context.setFillColor(line.color.cgColor)
             context.fillPixels(pts)
         }
 
         if let currentLine = currentLine {
-           let pts =  Bresenham.pointsAlongLineBresenham(currentLine)
+            let pts =  Bresenham.pointsAlongLineBresenham(currentLine)
+            context.setFillColor(currentLine.color.cgColor)
             context.fillPixels(pts)
         }
-        
         
         context.setFillColor(NSColor.lightGray.cgColor)
         
@@ -107,18 +118,17 @@ class CMKView: NSView {
 
 }
 
-
 extension CGContext {
 
     func fillPixels(_ pixels: [CGPoint]) {
         var size:CGSize?
-        if Screen.retinaScale > 1{
+        if Screen.retinaScale > 1 {
             size = CGSize(width: 1.5, height: 1.5)
-        }else{
+        } else {
             size = CGSize(width: 1.0, height: 1.0)
         }
 
-        for pixel in pixels{
+        for pixel in pixels {
           fill(CGRect(origin: pixel, size: size!))
         }
     }

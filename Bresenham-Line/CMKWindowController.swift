@@ -10,6 +10,8 @@ import Cocoa
 
 class CMKWindowController: NSWindowController {
 
+    weak var colorsPickerDelegate: CMKColorsPickerDelegate?
+
     override func windowDidLoad() {
         super.windowDidLoad()
 
@@ -18,8 +20,15 @@ class CMKWindowController: NSWindowController {
             return
         }
 
+        colorsPickerDelegate = controller
+
         window.mouseTrackdelegate = controller
         window.acceptsMouseMovedEvents = true
+    }
+
+    override func changeColor(_ sender: Any?) {
+        guard let colorPanel = sender as? NSColorPanel else { return }
+        colorsPickerDelegate?.pick(color: colorPanel.color)
     }
     
 }

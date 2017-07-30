@@ -8,11 +8,11 @@ import Foundation
 import Cocoa
 
 
-typealias BresenhamLine = (from: CGPoint, to: CGPoint)
+typealias BresenhamLine = (from: CGPoint, to: CGPoint, color: NSColor)
 
-class Bresenham:NSObject{
+class Bresenham {
     
-    class func pointsAlongLineBresenham(_ line: BresenhamLine)->[CGPoint] {
+    class func pointsAlongLineBresenham(_ line: BresenhamLine) -> [CGPoint] {
         consolePrint("Draw bresenham line from \(line.0) to \(line.1)")
         var result: [CGPoint] = []
         guard !line.from.equalTo(line.to) else { return []}

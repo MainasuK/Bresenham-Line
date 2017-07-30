@@ -11,8 +11,6 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
     }
@@ -24,12 +22,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
 }
-
-public typealias Screen = NSScreen
-
-extension NSScreen {
-    static var retinaScale: CGFloat {
-       return NSScreen.main()!.backingScaleFactor
-       }
-}
-

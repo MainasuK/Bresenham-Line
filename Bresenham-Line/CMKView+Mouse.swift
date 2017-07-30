@@ -16,8 +16,7 @@ extension CMKView {
         super.mouseDown(with: event)
         
         let pixel = convert(event.locationInWindow, from: nil).integral()
-        currentLine = (pixel, pixel)
-        
+        currentLine = (pixel, pixel, penColor)
         
         setNeedsDisplay(bounds)
     }
@@ -41,4 +40,22 @@ extension CMKView {
         setNeedsDisplay(bounds)
     }
     
+}
+
+// MARK: - CMKColorsPickerDelegate
+extension CMKView: CMKColorsPickerDelegate {
+
+    func pick(color: NSColor) {
+        penColor = color
+    }
+}
+
+extension CMKView {
+
+    override func resetCursorRects() {
+        super.resetCursorRects()
+
+        addCursorRect(bounds, cursor: NSCursor(radius: penRadius * Screen.retinaScale, color: penColor))
+    }
+
 }
