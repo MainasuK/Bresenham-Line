@@ -10,16 +10,52 @@ import Cocoa
 
 class CMKView: NSView {
 
-    typealias Line = CGContext.BresenhamLine
+    typealias Line = BresenhamLine
 
     var lines = [Line]()
     var currentLine: Line?
+
+    var runOnce = false
+    var circlePoints:[CGPoint] = []
+    var circleMidPoints:[CGPoint] = []
+    var octantPoints:[CGPoint] = []
 
     // Optimize the rendering
     override var isOpaque: Bool {
         return true
     }
 
+    
+    func preCalculateCirclePoints(){
+        for i in 0...2{
+            let pts = Bresenham.pointsAlongCircle(xc: 0, yc: 0, r: i*150)
+            circlePoints.append(contentsOf: pts)
+        }
+        
+        for i in 0...3{
+            let pts = Bresenham.pointsAlongMidPoint(xc: 300, yc: 300, r: i*80)
+            circleMidPoints.append(contentsOf: pts)
+        }
+        
+        // Arcs + octants
+        let x = 0
+        let y = 0
+        var r = 2
+        while(true){
+
+            let pts = Bresenham.pointsForOctants(xc: x, yc: y, radialRange: Array(r...r),octants: [0,1])
+            octantPoints.append(contentsOf: pts)
+            if (r>1100){
+                break
+            }
+            r = r*2
+            
+        }
+        
+
+    }
+    
+    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
 
@@ -31,101 +67,64 @@ class CMKView: NSView {
             return
         }
 
+        if (!runOnce){
+            runOnce = true
+            preCalculateCirclePoints()
+        }
+        
         // Fill background to white
         context.setFillColor(.white)
         context.fill(bounds)
+        context.setFillColor(NSColor.red.cgColor)
 
+       
         // Draw lines
-        context.setFillColor(.black)
         for line in lines {
-            context.addLine(line)
+           let pts =  Bresenham.pointsAlongLineBresenham(line)
+            context.fillPixels(pts)
         }
 
         if let currentLine = currentLine {
-            context.addLine(currentLine)
+           let pts =  Bresenham.pointsAlongLineBresenham(currentLine)
+            context.fillPixels(pts)
         }
-    }
-
-}
-
-extension CMKView {
-
-    override func mouseDown(with event: NSEvent) {
-        super.mouseDown(with: event)
-
-        let pixel = convert(event.locationInWindow, from: nil).integral()
-        currentLine = (pixel, pixel)
-
-        setNeedsDisplay(bounds)
-    }
-
-    override func mouseDragged(with event: NSEvent) {
-        super.mouseDragged(with: event)
         
-        let pixel = convert(event.locationInWindow, from: nil).integral()
-        currentLine?.to = pixel
-
-        setNeedsDisplay(bounds)
-    }
-
-    override func mouseUp(with event: NSEvent) {
-        super.mouseUp(with: event)
-
-        let pixel = convert(event.locationInWindow, from: nil).integral()
-        currentLine?.to = pixel
-        currentLine.flatMap { lines.append($0) }
-
-        setNeedsDisplay(bounds)
+        
+        context.setFillColor(NSColor.lightGray.cgColor)
+        
+        // Draw circle
+        context.fillPixels(circlePoints)
+        
+        // Mid point algorithm
+        context.fillPixels(circleMidPoints)
+        
+        // octant segments
+        context.setFillColor(NSColor.blue.cgColor)
+        context.fillPixels(octantPoints)
+        
+        
     }
 
 }
+
 
 extension CGContext {
 
-    typealias BresenhamLine = (from: CGPoint, to: CGPoint)
+    func fillPixels(_ pixels: [CGPoint]) {
+        var size:CGSize?
+        if Screen.retinaScale > 1{
+            size = CGSize(width: 1.5, height: 1.5)
+        }else{
+            size = CGSize(width: 1.0, height: 1.0)
+        }
 
+        for pixel in pixels{
+          fill(CGRect(origin: pixel, size: size!))
+        }
+    }
+    
     func fill(_ pixel: CGPoint) {
         fill(CGRect(origin: pixel, size: CGSize(width: 1.0, height: 1.0)))
     }
-
-    func addLine(_ line: BresenhamLine) {
-        consolePrint("Draw bresenham line from \(line.0) to \(line.1)")
-
-        guard !line.from.equalTo(line.to) else { return }
-
-        var dx = abs(Int(line.to.x - line.from.x))
-        var dy = abs(Int(line.to.y - line.from.y))
-        let xSign = Int(line.to.x - line.from.x).sign()
-        let ySign = Int(line.to.y - line.from.y).sign()
-
-        // Swap dx, dy
-        var isSwap = false
-        if dy > dx {
-            (dx, dy) = (dy, dx)
-            isSwap = true
-        }
-        var e = 2 * dy - dx
-
-        var x = Int(line.from.x)
-        var y = Int(line.from.y)
-
-        for _ in 0...dx {
-            fill(CGPoint(x: x, y: y))
-
-            if e >= 0 {
-                if isSwap   { x += xSign }
-                else        { y += ySign }
-
-                // if e >= 0, then minus 2dx
-                e -= 2 * dx
-            }
-
-            if isSwap   { y += ySign }
-            else        { x += xSign }
-
-            // always plus 2dy
-            e += 2 * dy
-        }
-    }
-
 }
+
